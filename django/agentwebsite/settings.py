@@ -74,13 +74,14 @@ WSGI_APPLICATION = 'agentwebsite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'service': 'my_service',
-            'passfile': '.mypgpass',
-        },
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'testdb',
+       'USER': 'django',
+       'PASSWORD': 'django',
+       'HOST': '172.17.0.3',
+       'PORT': '5432',
+   }
 }
 
 
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'RST'
+TIME_ZONE = 'Europe/Madrid'
 
 USE_I18N = True
 
