@@ -2,4 +2,4 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def dashboard(request):
-    return HttpResponse("DASHBOARD")
+    return render(request, 'experimentapp/frame.html')

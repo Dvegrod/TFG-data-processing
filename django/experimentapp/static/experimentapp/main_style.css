@@ -1,0 +1,26 @@
+
+:root {
+    --bgmain : #2f433e;
+    --bgsec: #737479;
+    --border: #1F483E;
+    --winbg: #c2e1bd;
+}
+
+#background {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    background-color: #2f433e;
+    opacity: 1;
+    background-image:  linear-gradient(30deg, #737479 12%, transparent 12.5%, transparent 87%, #737479 87.5%, #737479), linear-gradient(150deg, #737479 12%, transparent 12.5%, transparent 87%, #737479 87.5%, #737479), linear-gradient(30deg, #737479 12%, transparent 12.5%, transparent 87%, #737479 87.5%, #737479), linear-gradient(150deg, #737479 12%, transparent 12.5%, transparent 87%, #737479 87.5%, #737479), linear-gradient(60deg, #73747977 25%, transparent 25.5%, transparent 75%, #73747977 75%, #73747977), linear-gradient(60deg, #73747977 25%, transparent 25.5%, transparent 75%, #73747977 75%, #73747977);
+    background-size: 28px 49px;
+    background-position: 0 0, 0 0, 14px 25px, 14px 25px, 0 0, 14px 25px;
+}
+
+.window {
+    border-style: inset;
+    border-color: #1F483E;
+    border-width: 4px;
+    background: #c2e1bd;
+}
