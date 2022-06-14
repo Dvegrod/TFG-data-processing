@@ -1,17 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
+<html lang="es">
 <html>
     <head>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="{% static 'experimentapp/main_style.css' %}">
+        <script src="{% static 'experimentapp/front_logic.js' %}"></script>
     </head>
     <body>
         <!-- BACKGROUND -->
         <div id="background" class="background"></div>
-        <!-- BORDERS -->
-        <div id="top_border" class="pageborder"></div>
-        <div id="left_border" class="pageborder"></div>
-        <div id="right_border" class="pageborder"></div>
-        <div id="bottom_border" class="pageborder"></div>
+        <!-- BODYBLOCK -->
         {% block onbodyblock %}
         {% endblock %}
     </body>

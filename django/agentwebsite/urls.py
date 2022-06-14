@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from experimentapp.views import dashboard
+from experimentapp.views import *
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),
+    path('domains', domains, name='domains'),
+    path('domain/<int:domain_id>/subdomains', subdomains, name='subdomains')
 ]
