@@ -1,0 +1,36 @@
+<!-- Uses agents -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+{% block class %}agent_creation{% endblock %}
+<!-- Title -->
+{% block window_title %}⭐ Agent creation {% endblock %}
+<!-- Body -->
+{% block window_body %}
+<form id ="ag-creat" action="{% url 'new_agent' %}" method="post">
+    {% csrf_token %}
+    <div class="form_element">
+        <p class="inline">Name:</p>
+        <input class="inline form_name" name="name">
+    </div>
+    <div class="form_element">
+        <p class="inline">Uses context MABGB:</p>
+        <div class="radio_box">
+            <input class="inline" name="ctx" value="true" type="radio">
+            <p class="inline">Yes</p>
+            <input class="inline" name="ctx" value="false" type="radio" checked="true">
+            <p class="inline">No</p>
+        </div>
+    </div>
+    <div class="form_element">
+        <p class="inline">Uses full reward knowledge:</p>
+        <div class="radio_box">
+            <input class="inline" name="frf" value="true" type="radio" checked="true">
+            <p class="inline">Yes</p>
+            <input class="inline" name="frf" value="false" type="radio">
+            <p class="inline">No</p>
+        </div>
+    </div>
+</form>
+{% endblock %}

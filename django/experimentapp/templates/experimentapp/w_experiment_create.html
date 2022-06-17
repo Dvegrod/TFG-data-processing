@@ -1,0 +1,28 @@
+<!-- Uses agents -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+{% block class %}experiment_creation{% endblock %}
+<!-- Title -->
+{% block window_title %}🧪 Experiment creation {% endblock %}
+<!-- Body -->
+{% block window_body %}
+<form id ="ex-creat" action="{% url 'new_experiment' %}" method="post">
+    {% csrf_token %}
+    <div class="form_element">
+        <p class="inline">Name:</p>
+        <input class="inline form_name" name="name">
+    </div>
+    <div class="form_element">
+        <p>Select an agent:</p>
+        <button type="button" id="a_select_button" onclick="launch_content('agents', {'a_select':'true'})">Select...</button>
+        <input id="a_select_field" type="text" name="agent">
+    </div>
+    <div class="form_element">
+        <p>Select an edition:</p>
+        <button type="button" id="e_select_button" onclick="launch_content('domains', {'e_select':'true'})">Select...</button>
+        <input id="e_select_field" type="text" name="edition">
+    </div>
+</form>
+{% endblock %}

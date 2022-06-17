@@ -1,0 +1,19 @@
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}🗄 Domains{% endblock %}
+{% if e_select %}{% block class %}select_dialog{% endblock %}{% endif %}
+<!-- Body -->
+{% block window_body %}
+<div class="accordion" rendered="false">
+    {% for domain in domains.all %}
+    <h3 class="accord_name" opened="false" onclick="if ($(this).attr('opened') == 'false') {launch_content('domain/{{domain.id}}/subdomains', {'e_select':{% if e_select %}'true'{% else %}'false'{% endif %}},'#dd-{{domain.id}}'), $(this).attr('opened', 'true') }">{{domain.name}}</h3>
+    <div class="accord_data" id="dd-{{domain.id}}">
+        <p class="accord_description">{{domain.description}}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

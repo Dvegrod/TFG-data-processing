@@ -1,0 +1,23 @@
+{% extends "experimentapp/frame.html" %}
+
+{% block onbodyblock %}
+<script>
+ $( function() {
+     $(".dialog").dialog({
+         close: function(event, ui) {
+             console.log(event)
+         },
+         classes: {
+             "ui-dialog": "window ui-corner-all",
+             "ui-dialog-titlebar": "ui-corner-all",
+         },
+     })
+ })
+</script>
+<div class="dialog" title="Test Window"><p>Dialog text</p>
+    <button onclick="launch_content('/domains', {'e_select':'true'})">OPEN</button>
+    <button onclick="launch_content('/experiments')">OPEN 2</button>
+    <button onclick="launch_content('/agents', {'a_select':'false'})">OPEN 3</button>
+</div>
+<div class="dialog" title="Test Window2"><p>Dialog text</p></div>
+{% endblock %}

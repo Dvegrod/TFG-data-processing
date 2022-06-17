@@ -1,0 +1,18 @@
+<!-- Uses aarm, registers -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}📈 AARM - {{aarm.name}} {% endblock %}
+<!-- Body -->
+{% block window_body %}
+<div class="aarm-stats">
+    <p class="inline">Description: </p>
+    <p class="inline">{{aarm.description}}</p>
+</div>
+<div class="chart-holder">
+    <canvas id="chart-aarm-{{aarm.id}}"></canvas>
+</div>
+
+{% endblock %}

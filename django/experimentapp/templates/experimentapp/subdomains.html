@@ -1,0 +1,23 @@
+{% if subdomains.all|length < 1 %}
+<h3 id="subdomain-empty">(No subdomains)</h3>
+{% else %}
+<div class="accordion" rendered="false">
+    {% for subdomain in subdomains.all %}
+    <h3 class="domain_name" opened="false" onclick="if ($(this).attr('opened') == 'false') {launch_content('subdomain/{{subdomain.id}}/editions', {'e_select':{% if e_select %}'true'{% else %}'false'{% endif %}},'#dd-{{subdomain.id}}'), $(this).attr('opened', 'true') }">{{subdomain.name}}</h3>
+    <!-- Statistics -->
+    <div>
+        <div class="domain_data">
+            <div class="domain_description">
+                <p class="domain_description">{{subdomain.description}}</p>
+                <p class="subdomain_stats">Data starts in: </p>
+                <p class="subdomain_stats">Data ends in: </p>
+            </div>
+        </div>
+        <!-- Editions -->
+        <p class="domain_description">Generated editions: </p>
+        <div class="button_list" id="dd-{{subdomain.id}}">
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

@@ -1,0 +1,3 @@
+{% for edition in editions %}
+<button onclick="{% if e_select %}$('#e_select_field').val({{edition.id}}); $('.select_dialog').dialog('close'){% else %}launch_content('edition/{{edition.id}}'){% endif %}">{{edition.name}}</button>
+{% endfor %}

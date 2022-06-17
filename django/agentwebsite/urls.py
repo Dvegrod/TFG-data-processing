@@ -22,5 +22,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard, name='dashboard'),
     path('domains', domains, name='domains'),
-    path('domain/<int:domain_id>/subdomains', subdomains, name='subdomains')
+    path('domain/<int:domain_id>/subdomains', subdomains, name='subdomains'),
+    path('subdomain/<int:subdomain_id>/editions', editions, name='editions'),
+    path('edition/<int:edition_id>', edition_, name='edition'),
+    path('aarm/<int:aarm_id>', aarm, name='aarm'),
+    path('agents', agents, name='agents'),
+    path('experiments', experiments, name='experiments'),
+    path('new_agent', agent_creation, name='agent_creation'),
+    path('new/agent', new_agent, name='new_agent'),
+    path('new_experiment', experiment_creation, name='experiment_creation'),
+    path('new/experiment', new_experiment, name='new_experiment'),
+    path('experiment/<int:exp_id>', experiment, name='experiment_dash')
 ]

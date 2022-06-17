@@ -1,0 +1,32 @@
+<!-- Uses: subdomain, edition, edition_aarms -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}📂 {{subdomain.name}} - Edition: {{edition.name}}{% endblock %}
+<!-- Body -->
+{% block window_body %}
+<div class="edition_stats">
+    <p class="inline">Interval length (days):</p>
+    <p class="inline bold">{{edition.interval}}</p>
+    <p class="inline">Total iterations:</p>
+    <p class="inline bold">{{edition.iterations}}</p>
+</div>
+<div class="edition_chart">
+</div>
+<div class="edition_aarm_search">
+    <div class="search_form">
+        <p class="little_margin bold"> Abstract Arms: </p>
+        <input id="search-{{edition.id}}" class="search_input">
+        <button class="inline" onclick="filter('.aarm_entry', 'p', $('#search-{{edition.id}}').val())">Filter by name</p>
+    </div>
+    <div class="search_results">
+        {% for aarm in edition_aarms %}
+        <button class="aarm_entry inline" onclick="launch_content('aarm/{{aarm.id}}')">
+            <p class="no_margin">📈 {{aarm.name}}</p>
+        </button>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

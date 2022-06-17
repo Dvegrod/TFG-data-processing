@@ -1,0 +1,19 @@
+<!-- Uses: experiment -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}📂 Experiment: {{experiment.name}}{% endblock %}
+<!-- Body -->
+{% block window_body %}
+<div class="status">
+    <p class="inline">Status:</p>
+    <p class="inline">{% if experiment.running %} RUNNING {% else %} STOPPED{% endif %}</p>
+</div>
+<div class="buttonbox">
+    <button>START</button>
+    <button>STOP</button>
+    <button>STEP</button>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!-- Uses experiments -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+{% block class %}experiments{% endblock %}
+<!-- Title -->
+{% block window_title %}📊 Experiments {% endblock %}
+<!-- Body -->
+{% block window_body %}
+<div class="accordion" rendered="false">
+    {% for experiment in experiments.all %}
+    <h3 class="accord_name">{{experiment.name}} - {% if experiment.running %}R{% else %}⏸{% endif %}</h3>
+    <div class="accord_data" id="ed-{{experiment.id}}">
+        <div class="accord_description">
+            <div>
+                <p class="inline bold">Created:</p>
+                <p class="inline">{{experiment.date_creation}}</p>
+            </div>
+            <div>
+                <p class="inline bold">Updated:</p>
+                <p class="inline">{{experiment.date_updated}}</p>
+            </div>
+            <div>
+                <p class="inline bold">Completed iterations:</p>
+                <p class="inline">{{experiment.completed_iterations}}</p>
+            </div>
+            <button onclick="launch_content('experiment/{{experiment.id}}')">Manage experiment</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

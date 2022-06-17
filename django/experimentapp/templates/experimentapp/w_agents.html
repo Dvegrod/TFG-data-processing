@@ -1,0 +1,21 @@
+<!-- Uses agents and uses -->
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+{% block class %}agents {% if a_select %}select_dialog{% endif %}{% endblock %}
+<!-- Title -->
+{% block window_title %}🧮 Agents {% endblock %}
+<!-- Body -->
+{% block window_body %}
+<div class="accordion" rendered="false">
+    {% for agent in agents.all %}
+    <h3 class="accord_name" opened="false" onclick="">{{agent.name}} - <span class="turquoise">{% if agent.context == True %}Ⓒ{% endif %}</span><span class="purple">Ⓖ</span></h3>
+    <div class="accord_data" id="dd-{{agent.id}}">
+        <p class="accord_description"></p>
+        {% if a_select %}<button onclick="$('#a_select_field').val({{agent.id}}); $('.select_dialog').dialog('close')">Select this agent</button>{% else %}<button onclick="">Delete</button>{% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
