@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 import datetime
+import requests
 
 from .models import *
 
@@ -80,3 +81,7 @@ def experiments(request):
 def experiment(request, exp_id):
     ctx = {"experiment" : Experiment.objects.get(id=exp_id)}
     return render(request, 'experimentapp/w_experiment.html', ctx)
+
+def START(request, exp_id):
+    res = requests.get(f'http://localhost:8001/start/{exp_id}')
+    return HttpResponse(res)

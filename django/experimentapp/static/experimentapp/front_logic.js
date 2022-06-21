@@ -141,3 +141,14 @@ function ajaxFormSubmit(e) {
         }
     });
 }
+
+function ajaxCommandSend(url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {},
+        sucess: function(data) {
+            alert("Response");
+        }
+    });
+}

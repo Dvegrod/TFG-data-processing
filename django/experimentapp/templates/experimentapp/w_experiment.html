@@ -12,7 +12,7 @@
     <p class="inline">{% if experiment.running %} RUNNING {% else %} STOPPED{% endif %}</p>
 </div>
 <div class="buttonbox">
-    <button>START</button>
+    <button onclick="ajaxCommandSend('start/{{experiment.id}}')">START</button>
     <button>STOP</button>
     <button>STEP</button>
 </div>

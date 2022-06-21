@@ -32,5 +32,6 @@ urlpatterns = [
     path('new/agent', new_agent, name='new_agent'),
     path('new_experiment', experiment_creation, name='experiment_creation'),
     path('new/experiment', new_experiment, name='new_experiment'),
-    path('experiment/<int:exp_id>', experiment, name='experiment_dash')
+    path('experiment/<int:exp_id>', experiment, name='experiment_dash'),
+    path('start/<int:exp_id>', START, name='experiment_start'),
 ]
