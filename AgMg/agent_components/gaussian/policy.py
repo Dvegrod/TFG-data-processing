@@ -3,9 +3,9 @@ import tf_agents as tfa
 import tensorflow_probability as tfp
 
 
-class ControlPolicy(tfa.policies.TFPolicy):
+class Policy(tfa.policies.TFPolicy):
 
-    def __init__(self, context_dims, arms, time_step_spec, action_spec, policy_state_spec=(), info_spec=(), clip=True,
+    def __init__(self, context_dims, frf, arms, time_step_spec, action_spec, policy_state_spec=(), info_spec=(), clip=True,
                  emit_log_probability=False, automatic_state_reset=True,
                  observation_and_action_constraint_splitter=None, validate_args=True, name=None):
         super().__init__(time_step_spec, action_spec, policy_state_spec=policy_state_spec, info_spec=info_spec,
@@ -16,12 +16,22 @@ class ControlPolicy(tfa.policies.TFPolicy):
         self.nu = tf.zeros([arms], dtype=tf.dtypes.float32)
         self.arms = arms
         self.number_of_plays = tf.ones([arms], dtype=tf.dtypes.float32)
+        self.frf = frf
 
     def _update(self, policy_state, time_step):
         # Update
-        self.number_of_plays += 1
-        self.nu = self.nu / self.number_of_plays * (
-            self.number_of_plays - 1) + tf.squeeze(time_step.observation[0])[0:-1] / self.number_of_plays
+        # IF all arms have to be reinforced
+        if self.frf:
+            self.number_of_plays += 1
+            self.nu = self.nu / self.number_of_plays * (
+                self.number_of_plays - 1) + tf.squeeze(time_step.observation[0])[0:-1] / self.number_of_plays
+        else:
+            self.number_of_plays = tf.tensor_scatter_nd_add(self.number_of_plays, [policy_state], [1])
+            self.nu = tf.tensor_scatter_nd_update(self.nu, [policy_state],
+                                                  self.nu[policy_state[0]] / self.number_of_plays[policy_state[0]] * (
+                                                          self.number_of_plays[
+                                                              policy_state[0]] - 1) + time_step.reward /
+                                                  self.number_of_plays[policy_state[0]])
 
     def _action(self, time_step: tfa.trajectories.TimeStep, policy_state, seed):
         self._update(policy_state, time_step)

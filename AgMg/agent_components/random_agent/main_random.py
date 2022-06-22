@@ -42,7 +42,7 @@ env_steps = tf_metrics.EnvironmentSteps()
 epi_length = tf_metrics.AverageEpisodeLengthMetric()
 ave_return = tf_metrics.AverageReturnMetric()
 regret = tfa.bandits.metrics.tf_metrics.RegretMetric(optimal)
-from src.metrics import RegretOverTimeAnalytics, DebuggerMetric
+from ..context.metrics import RegretOverTimeAnalytics, DebuggerMetric
 regret = RegretOverTimeAnalytics(N_STEPS)
 debug = DebuggerMetric(N_STEPS)
 observers = [hist, regret, debug]

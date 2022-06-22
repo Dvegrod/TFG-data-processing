@@ -3,10 +3,10 @@ import tf_agents as tfa
 import tensorflow_probability as tfp
 
 
-class StockMarketPolicy(tfa.policies.TFPolicy):
+class Policy(tfa.policies.TFPolicy):
     """"""
 
-    def __init__(self, context_dims, arms, time_step_spec, action_spec, policy_state_spec=(), info_spec=(), clip=True,
+    def __init__(self, context_dims, frf, arms, time_step_spec, action_spec, policy_state_spec=(), info_spec=(), clip=True,
                  emit_log_probability=False, automatic_state_reset=True,
                  observation_and_action_constraint_splitter=None, validate_args=True, name=None):
         super().__init__(time_step_spec, action_spec, policy_state_spec=policy_state_spec, info_spec=info_spec,

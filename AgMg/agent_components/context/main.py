@@ -30,8 +30,8 @@ data = datastruct.read_data(file_list, N_ARMS)
 
 environment = env.StockMarketEnvironment(N_ARMS, timestep_spec, action_spec, 1, data)
 
-policy = pol.StockMarketPolicy(context_dims, K, timestep_spec, action_spec, observation_and_action_constraint_splitter=action_splitter,
-                               policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
+policy = pol.Policy(context_dims, K, timestep_spec, action_spec, observation_and_action_constraint_splitter=action_splitter,
+                    policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
 
 @tf.function
 def optimal(observation):
@@ -44,7 +44,7 @@ env_steps = tf_metrics.EnvironmentSteps()
 epi_length = tf_metrics.AverageEpisodeLengthMetric()
 ave_return = tf_metrics.AverageReturnMetric()
 regret = tfa.bandits.metrics.tf_metrics.RegretMetric(optimal)
-from src.metrics import RegretOverTimeAnalytics, DebuggerMetric
+from metrics import RegretOverTimeAnalytics, DebuggerMetric
 regret = RegretOverTimeAnalytics(N_STEPS)
 debug = DebuggerMetric(N_STEPS)
 observers = [hist, regret, debug]
@@ -58,9 +58,9 @@ for i in range(1):
     print(i)
     data = datastruct.read_data(file_list, N_ARMS)
     environment.data = iter(data)
-    policy = pol.StockMarketPolicy(context_dims, K, timestep_spec, action_spec,
-                                   observation_and_action_constraint_splitter=action_splitter,
-                                   policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
+    policy = pol.Policy(context_dims, K, timestep_spec, action_spec,
+                        observation_and_action_constraint_splitter=action_splitter,
+                        policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
     driver = tfa.drivers.dynamic_step_driver.DynamicStepDriver(environment, policy, observers=observers, num_steps=2000)
     driver.run(environment.reset())
     graphs.append(regret)

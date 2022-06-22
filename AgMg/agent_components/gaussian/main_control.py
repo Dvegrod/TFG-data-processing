@@ -26,7 +26,7 @@ file_list = np.load("../../pruebas/modelo_experimental_A/candidates.npy")
 file_list = ["../../pruebas/modelo_experimental_A/arms3/" + str(i) + ".csv" for i in file_list]
 data = datastruct.read_data(file_list, N_ARMS)
 
-environment = env.ControlEnvironment(N_ARMS, timestep_spec, action_spec, 1, data)
+environment = env.Environment(N_ARMS, timestep_spec, action_spec, 1, data)
 
 
 @tf.function
@@ -52,9 +52,9 @@ ban = []
 for i in range(50):
     data = datastruct.read_data(file_list, N_ARMS)
     environment.data = iter(data)
-    policy = pol.ControlPolicy(context_dims, K, timestep_spec, action_spec,
-                               observation_and_action_constraint_splitter=action_splitter,
-                               policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
+    policy = pol.Policy(context_dims, K, timestep_spec, action_spec,
+                        observation_and_action_constraint_splitter=action_splitter,
+                        policy_state_spec=policy_spec, info_spec=info_spec, automatic_state_reset=False)
     driver = tfa.drivers.dynamic_step_driver.DynamicStepDriver(environment, policy, observers=observers, num_steps=4000)
     driver.run(environment.reset())
     ban.append(regret.roi())
