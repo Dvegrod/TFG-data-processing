@@ -31,9 +31,16 @@ class Reader:
 
 
 class Writer:
-    def __init__(self, host, database, user, password):
+    def __init__(self, host, database, user, password, experiment_id):
         self.session = psycopg2.connect(f"host={host} dbname={database} user={user} password={password}")
         self.tf_endpoint = f"postgresql://{user}:{password}@{host}?port=5432&dbname={database}"
 
-    def save_step(self):
-        pass
+        cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
+        cursor.execute(f"INSERT INTO public.experimentapp_episodeexecution (date, experiment_id) VALUES (CURRENT_TIMESTAMP, {experiment_id})")
+        cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
+        cursor.execute(f"SELECT id FROM public.experimentapp_episodeexecution WHERE date = (SELECT max(date) FROM public.experimentapp_episodeexecution)")
+        self.episode_id = cursor.fetchone()['id']
+
+    async def save_step(self, iteration, performance, reward):
+        cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
+        cursor.execute(f"INSERT INTO public.experimentapp_executionresult (iteration, performance, reward, episode_id) VALUES ({iteration}, {performance}, {reward}, {self.episode_id})")

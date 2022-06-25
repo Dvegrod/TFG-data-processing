@@ -3,6 +3,7 @@ import agent_driver
 import agent_builder
 import signal
 import time
+import agent_metrics
 import sys
 import db_interface
 
@@ -52,6 +53,9 @@ if __name__ == "__main__":
         "DATA": dataset
     })
     agent = builder.build()
+    # WRITER AND METRICS
+    write = db_interface.Writer("172.17.0.3", "testdb", "postgres", "burra", command_register["experiment_id"])
+    result_upload = agent_metrics.result_uploader_metric.ResultUploaderMetric(write)
 
     while True:
         # DRIVER CHECK LOOP

@@ -7,8 +7,13 @@ class AgentDriver(tfa.drivers.driver.Driver):
         super().__init__(env, policy, observers, transition_observers)
         self.command_register = command_register
         self.episode_end = False
+        self.result_observers = []
+
+    def add_result_observers(self, obs):
+        self.result_observers.append(obs)
 
     def run(self, seed=0, first_observation=None):
+        iteration = 0
         episode_last = False
         observation = first_observation if first_observation is not None else self.env.reset()
         policy_state = self._policy._get_initial_state(batch_size=1)
@@ -21,5 +26,8 @@ class AgentDriver(tfa.drivers.driver.Driver):
                 self.episode_end = True
             else:
                 observation = self._env.step(action[0])
+            for obs in self.result_observers:
+                obs.call(iteration, action, observation.reward)
             if observation.step_type == tf.constant(tfa.trajectories.time_step.StepType.LAST):
                 episode_last = True
+            iteration += 1

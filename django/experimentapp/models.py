@@ -56,3 +56,16 @@ class Experiment(models.Model):
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     running = models.BooleanField()
     completed_iterations = models.IntegerField(default=0)
+
+class EpisodeExecution(models.Model):
+    id = models.AutoField(primary_key=True)
+    experiment = models.ForeignKey(Experiment, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+
+class ExecutionResult(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    episode = models.ForeignKey(EpisodeExecution, on_delete=models.CASCADE)
+    iteration = models.IntegerField()
+    # action = models.ForeignKey(AARM, on_delete=models.CASCADE)
+    performance = models.FloatField()
+    reward = models.FloatField()
