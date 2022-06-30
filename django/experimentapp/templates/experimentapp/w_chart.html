@@ -1,0 +1,10 @@
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}❇ Chart: {% block chart_title %}{% endblock %} {{experiment.name}}{% endblock %}
+<!-- Body -->
+{% block window_body %}
+<canvas id="{% block chart_id%}{% endblock %}" class="{% block chart_class%}{% endblock %}"></canvas>
+{% endblock %}

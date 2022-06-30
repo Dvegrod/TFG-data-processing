@@ -1,0 +1,10 @@
+{"type": "line",
+ "data": {
+     "labels" : [{% for register in registers %}{% include "experimentapp/comma.html" %}"{{register.iteration|date:'Y-m-d'}}"{% endfor %}],
+     "datasets": [
+         {
+         "label": "Execution {{execution.id}}",
+         "data" : [{% for register in registers%}{% include "experimentapp/comma.html" %}{{register.performance}}{% endfor %}]
+     }
+     ]
+ }}

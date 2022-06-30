@@ -68,6 +68,15 @@
     margin-bottom: 5px;
 }
 
+.element_separated_bot {
+    border-bottom: 1px dotted #AAA;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.chart_frame {
+}
+
 #subdomain-empty {
 	  margin: 0px;
 	  color: gray;

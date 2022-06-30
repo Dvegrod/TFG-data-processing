@@ -9,7 +9,7 @@ class AgentDriver(tfa.drivers.driver.Driver):
         self.episode_end = False
         self.result_observers = []
 
-    def add_result_observers(self, obs):
+    def add_result_observer(self, obs):
         self.result_observers.append(obs)
 
     def run(self, seed=0, first_observation=None):
@@ -26,8 +26,9 @@ class AgentDriver(tfa.drivers.driver.Driver):
                 self.episode_end = True
             else:
                 observation = self._env.step(action[0])
+            # NOTIFY RESULT OBSERVER
             for obs in self.result_observers:
-                obs.call(iteration, action, observation.reward)
+                obs.call(iteration, action[0], observation.reward)
             if observation.step_type == tf.constant(tfa.trajectories.time_step.StepType.LAST):
                 episode_last = True
             iteration += 1

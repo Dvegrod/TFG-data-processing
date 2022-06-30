@@ -34,4 +34,7 @@ urlpatterns = [
     path('new/experiment', new_experiment, name='new_experiment'),
     path('experiment/<int:exp_id>', experiment, name='experiment_dash'),
     path('start/<int:exp_id>', START, name='experiment_start'),
+    # Charts:
+    path('chart/performance/<int:execution_id>', chart_performance, name='c_perf'),
 ]
+

@@ -11,9 +11,12 @@
     <p class="inline">Status:</p>
     <p class="inline">{% if experiment.running %} RUNNING {% else %} STOPPED{% endif %}</p>
 </div>
-<div class="buttonbox">
+<div class="buttonbox element_separated_bot">
     <button onclick="ajaxCommandSend('start/{{experiment.id}}')">START</button>
     <button>STOP</button>
     <button>STEP</button>
+</div>
+<div class="element_separated_bot">
+    <div class="progressbar" value="23"></div>
 </div>
 {% endblock %}

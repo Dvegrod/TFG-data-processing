@@ -85,3 +85,21 @@ def experiment(request, exp_id):
 def START(request, exp_id):
     res = requests.get(f'http://localhost:8001/start/{exp_id}')
     return HttpResponse(res)
+
+def chart_performance(request, execution_id):
+    if request.method == 'GET':
+        #name = request.GET["average"]
+        #agent = request.GET["iterator_session"]
+        ctx = {
+            "execution" : EpisodeExecution.objects.get(id=execution_id),
+            "registers" : ExecutionResult.objects.filter(episode=execution_id)
+        }
+        return render(request, 'experimentapp/data_performance.json', ctx)
+    else:
+        return HttpResponseBadRequest('Has to be GET')
+
+def chart_reward(request, execution_id):
+    pass
+
+def chart_aarm(request, aarm_id):
+    pass

@@ -1,0 +1,4 @@
+{% extends "experimentapp/chart.html" %}
+{% block chart_title %}Performance | Experiment {{experiment.name|slice:":25"}} | Execution ID {{execution.id}} {% endblock %}
+{% block chart_id %}p_c_{{execution.id}}{% endblock %}
+{% block chart_class %}chart_frame{% endblock %}
