@@ -1,4 +1,4 @@
-<!-- Uses: experiment -->
+<!-- Uses: experiment execution -->
 {% extends "experimentapp/window.html" %}
 <!-- Default window size -->
 {% block size_x %}600{% endblock %}
@@ -18,5 +18,18 @@
 </div>
 <div class="element_separated_bot">
     <div class="progressbar" value="23"></div>
+</div>
+<div class="accordion" rendered="false">
+    {% for execution in executions %}
+    <h3 class="accord_name">Date: {{execution.date}} | ID: {{execution.id}}</h3>
+    <div class="accord_data" id="ee-{{execution.id}}">
+        <p class="title">Results:</p>
+        <div class="buttonbox button_list element_separated_bot">
+            <button onclick="launch_content('new_chart/performance/{{execution.id}}')">Performance</button>
+            <button onclick="launch_content('new_chart/rewards/{{execution.id}}')">Rewards</button>
+            <button onclick="launch_content('new_chart/choices/{{execution.id}}')">Choices</button>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

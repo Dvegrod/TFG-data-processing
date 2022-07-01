@@ -84,6 +84,9 @@ function raise_content(data, status, y) {
         heightStyle : "content",
     });
     $(".accordion").attr("rendered", "true");
+    // Load charts
+    eval($(".chart_frame").attr("cload"));
+    $(".chart_frame").attr("cload", "");
 }
 
 function raise_error(x, error, y) {

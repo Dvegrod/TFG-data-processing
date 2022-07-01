@@ -18,11 +18,11 @@ chart_properties = {
 };
 
 
-function configure_chart(id) {
+function configure_chart(id, url) {
     select = $("#" + id);
     chart_info = $.ajax({
         type: "GET",
-        url : "chart/performance/16",
+        url : url,
         data: {},
         async: false
     });

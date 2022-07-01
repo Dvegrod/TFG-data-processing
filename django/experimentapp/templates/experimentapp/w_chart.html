@@ -3,8 +3,8 @@
 {% block size_x %}600{% endblock %}
 {% block size_y %}350{% endblock %}
 <!-- Title -->
-{% block window_title %}❇ Chart: {% block chart_title %}{% endblock %} {{experiment.name}}{% endblock %}
+{% block window_title %}❇ Chart: {% block chart_title %}{% endblock %}{% endblock %}
 <!-- Body -->
 {% block window_body %}
-<canvas id="{% block chart_id%}{% endblock %}" class="{% block chart_class%}{% endblock %}"></canvas>
+<canvas id="{% block chart_id%}{% endblock %}" class="{% block chart_class%}{% endblock %}" cload="{% block chart_onload %}{% endblock %}"></canvas>
 {% endblock %}

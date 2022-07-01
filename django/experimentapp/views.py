@@ -79,12 +79,20 @@ def experiments(request):
     return render(request, 'experimentapp/w_experiments.html', ctx)
 
 def experiment(request, exp_id):
-    ctx = {"experiment" : Experiment.objects.get(id=exp_id)}
+    exp = Experiment.objects.get(id=exp_id)
+    ctx = {"experiment" : exp,
+           "executions" : EpisodeExecution.objects.filter(experiment = exp).order_by("-date")}
     return render(request, 'experimentapp/w_experiment.html', ctx)
 
 def START(request, exp_id):
     res = requests.get(f'http://localhost:8001/start/{exp_id}')
     return HttpResponse(res)
+
+def new_chart_performance(request, execution_id):
+    execc = EpisodeExecution.objects.get(id=execution_id)
+    ctx = {"execution" : execc,
+           "experiment": Experiment.objects.get(id=execc.experiment_id)}
+    return render(request, 'experimentapp/performance.html', ctx)
 
 def chart_performance(request, execution_id):
     if request.method == 'GET':

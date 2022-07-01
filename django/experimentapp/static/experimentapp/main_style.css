@@ -90,6 +90,13 @@
     font-weight: bold;
 }
 
+.title {
+    font-size: larger;
+    font-weight: bold;
+    margin: 0em;
+    margin-bottom: 0.3em;
+}
+
 .purple {
     color : var(--border);
 }
