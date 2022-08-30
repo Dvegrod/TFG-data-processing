@@ -81,12 +81,17 @@ function raise_content(data, status, y) {
     // Decorate accordions
     $(".accordion[rendered='false']").accordion({
         collapsible : true,
+        active: false,
         heightStyle : "content",
     });
     $(".accordion").attr("rendered", "true");
     // Load charts
-    eval($(".chart_frame").attr("cload"));
-    $(".chart_frame").attr("cload", "");
+    $(".chart_frame").each(function (i, e) {eval(e.attributes.cload.value);});
+    //$(".chart_frame").attr("cload", "");
+    $(".progressbar[active='false']").progressbar({
+        value : 0
+    });
+    $(".progressbar").attr('active', 'true');
 }
 
 function raise_error(x, error, y) {
@@ -154,4 +159,35 @@ function ajaxCommandSend(url) {
             alert("Response");
         }
     });
+}
+
+function experimentButton(exp_id) {
+    setInterval(
+        function () {
+            info = $.ajax({
+                type: "GET",
+                url: "progress/" + exp_id,
+                data: {},
+                async: false
+            });
+            pg_info = JSON.parse(info.responseText);
+            $("#ex_" + exp_id).progressbar("value", pg_info.current / pg_info.total * 100);
+        },
+        1000
+    );
+    setTimeout(function () {
+    $.ajax({
+        type: "GET",
+        url: "exps/" + exp_id,
+        data: {},
+        success: function (data) {
+            $(".accordion.expacc").prepend(data);
+            $(".accordion.expacc").accordion({
+                collapsible : true,
+                active: false,
+                heightStyle : "content",
+            });
+        }
+    })
+    }, 5000);
 }

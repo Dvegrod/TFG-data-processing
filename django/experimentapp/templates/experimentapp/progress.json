@@ -1,0 +1,4 @@
+{
+    "total" : {{edition.iterations}},
+    "current" : {{experiment.completed_iterations}}
+}

@@ -1,0 +1,10 @@
+
+<h3 class="accord_name">Date: {{execution.date}} | ID: {{execution.id}}</h3>
+<div class="accord_data" id="ee-{{execution.id}}">
+    <p class="title">Results:</p>
+    <div class="buttonbox button_list element_separated_bot">
+        <button onclick="launch_content('new_chart/performance/{{execution.id}}')">Performance</button>
+        <button onclick="launch_content('new_chart/rewards/{{execution.id}}')">Rewards</button>
+        <button onclick="launch_content('new_table/choices/{{execution.id}}')">Choices</button>
+    </div>
+</div>

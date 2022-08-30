@@ -7,19 +7,15 @@
 {% block window_title %}📂 Experiment: {{experiment.name}}{% endblock %}
 <!-- Body -->
 {% block window_body %}
-<div class="status">
-    <p class="inline">Status:</p>
-    <p class="inline">{% if experiment.running %} RUNNING {% else %} STOPPED{% endif %}</p>
-</div>
 <div class="buttonbox element_separated_bot">
-    <button onclick="ajaxCommandSend('start/{{experiment.id}}')">START</button>
-    <button>STOP</button>
+    <button onclick="ajaxCommandSend('start/{{experiment.id}}');experimentButton({{experiment.id}});">START</button>
+    <button onclick="experimentButton({{experiment.id}})">STOP</button>
     <button>STEP</button>
 </div>
 <div class="element_separated_bot">
-    <div class="progressbar" value="23"></div>
+    <div id="ex_{{experiment.id}}" class="progressbar" active="false" value="0"></div>
 </div>
-<div class="accordion" rendered="false">
+<div class="accordion expacc" rendered="false">
     {% for execution in executions %}
     <h3 class="accord_name">Date: {{execution.date}} | ID: {{execution.id}}</h3>
     <div class="accord_data" id="ee-{{execution.id}}">
@@ -27,7 +23,7 @@
         <div class="buttonbox button_list element_separated_bot">
             <button onclick="launch_content('new_chart/performance/{{execution.id}}')">Performance</button>
             <button onclick="launch_content('new_chart/rewards/{{execution.id}}')">Rewards</button>
-            <button onclick="launch_content('new_chart/choices/{{execution.id}}')">Choices</button>
+            <button onclick="launch_content('new_table/choices/{{execution.id}}')">Choices</button>
         </div>
     </div>
     {% endfor %}

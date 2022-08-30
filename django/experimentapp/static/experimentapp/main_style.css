@@ -25,6 +25,40 @@
     outline: 10px inset red;
 }
 
+#dashboard-menu {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  border-top: 5px groove var(--border);
+	  background: var(--winbg);
+	  left: 0px;
+	  padding-top: 0.5em;
+}
+
+#dashboard-menu * {
+	  display: inline;
+}
+
+#dashboard-menu p {
+	  border-right: 2px dotted gray;
+	  padding-right: 3%;
+	  padding-left: 1%;
+}
+
+#dashboard-menu button {
+	  border: 3px double var(--border);
+	  border-radius: 5px;
+	  padding: 0.5em;
+	  margin-bottom: 0.3em;
+	  width: 15%;
+    min-width: fit-content;
+}
+
+#dmbuttons {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
 .ui-dialog.window {
     border-style: outset;
     border-color: var(--border);

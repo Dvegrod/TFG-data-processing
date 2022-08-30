@@ -12,4 +12,4 @@ class ResultUploader:
 
     def call(self, iteration, action, reward):
         self.performance = self.performance * (tf.squeeze(reward) + tf.constant(1.))
-        self.writer.save_step(iteration, self.performance.numpy(), tf.squeeze(reward).numpy())
+        self.writer.save_step(iteration, self.performance.numpy(), tf.squeeze(reward).numpy(), action.numpy())

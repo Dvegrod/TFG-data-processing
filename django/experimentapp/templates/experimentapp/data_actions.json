@@ -1,0 +1,4 @@
+{
+    "dates": [{% for register in registers %}{% include "experimentapp/comma.html" %}"{{register.iteration|date:'Y-m-d'}}"{% endfor %}],
+    "aarms": [{% for register in registers %}{% include "experimentapp/comma.html" %}"{{register.action_id}}"{% endfor %}]
+}

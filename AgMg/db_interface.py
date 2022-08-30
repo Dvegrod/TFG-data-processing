@@ -44,7 +44,7 @@ class Writer:
             if curs.fetchone()[0]:
                 raise RuntimeError("Experiment already in execution.")
             else:
-                curs.execute(f"UPDATE public.experimentapp_experiment SET running = true WHERE id = {experiment_id}")
+                curs.execute(f"UPDATE public.experimentapp_experiment SET running = true, completed_iterations = 1 WHERE id = {experiment_id}")
         cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
         cursor.execute(
             f"INSERT INTO public.experimentapp_episodeexecution (date, experiment_id) VALUES (CURRENT_TIMESTAMP, {experiment_id})")
@@ -53,16 +53,26 @@ class Writer:
             f"SELECT id FROM public.experimentapp_episodeexecution WHERE date = (SELECT max(date) FROM public.experimentapp_episodeexecution)")
         self.episode_id = cursor.fetchone()['id']
         self.session.commit()
-        return self.episode_id
-
-    def save_step(self, iteration, performance, reward):
-        cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
+        self.experiment_id = experiment_id
         # Convert iteration to date
         with self.session.cursor() as curs:
             curs.execute(f"SELECT date FROM public.experimentapp_abstractrewardregister WHERE edition_id = {self.edition} GROUP BY date ORDER BY date")
-            datelist = curs.fetchall()
-        date = datelist[iteration][0]
-        cursor.execute(f"INSERT INTO public.experimentapp_executionresult (iteration, performance, reward, episode_id) VALUES ('{date}', {performance}, {reward}, {self.episode_id})")
+            self.datelist = curs.fetchall()
+        # Convert action to aarm
+        with self.session.cursor() as curs:
+            curs.execute(f"SELECT id FROM public.experimentapp_aarm WHERE sub_domain_id IN (SELECT sub_domain_id FROM public.experimentapp_experiment WHERE id = {self.experiment_id})")
+            self.aarm_list = curs.fetchall()
+        print(self.aarm_list)
+        return self.episode_id
+
+    def save_step(self, iteration, performance, reward, aarm):
+        cursor = self.session.cursor(cursor_factory=extras.RealDictCursor)
+        date = self.datelist[iteration][0]
+        print(aarm)
+        aarm = self.aarm_list[aarm[0]][0]
+        # Insert step
+        cursor.execute(f"INSERT INTO public.experimentapp_executionresult (iteration, performance, reward, episode_id, action_id) VALUES ('{date}', {performance}, {reward}, {self.episode_id}, {aarm})")
+        cursor.execute(f"UPDATE public.experimentapp_experiment SET completed_iterations = completed_iterations + 1 WHERE id = {self.experiment_id}")
         self.session.commit()
 
     def finish_execution(self, experiment_id):

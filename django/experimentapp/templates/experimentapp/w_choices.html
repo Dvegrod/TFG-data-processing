@@ -1,0 +1,21 @@
+{% extends "experimentapp/window.html" %}
+<!-- Default window size -->
+{% block size_x %}600{% endblock %}
+{% block size_y %}350{% endblock %}
+<!-- Title -->
+{% block window_title %}🗄 Domains{% endblock %}
+<!-- Body -->
+{% block window_body %}
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Choice</th>
+    </tr>
+    {% for register in registers %}
+    <tr>
+        <td>{{register.iteration|date:'Y-m-d'}}</td>
+        <td>{{register.action_id}}</td>
+    </tr>
+    {% endfor %}
+</table> 
+{% endblock %}

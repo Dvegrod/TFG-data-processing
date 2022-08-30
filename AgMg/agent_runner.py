@@ -35,7 +35,7 @@ if __name__ == "__main__":
         # INIT AGENT BUILDER
         builder = agent_builder.AgentBuilder(command_register)
         # START DB SESSION
-        reader = db_interface.Reader("172.17.0.3", "testdb", "postgres", "burra")
+        reader = db_interface.Reader("172.17.0.2", "testdb", "postgres", "burra")
         # GET DATA
         exp_data = reader.experiment_data(command_register["experiment_id"])
         agent_data = reader.agent_data(exp_data["agent_id"])
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         })
         agent = builder.build()
         # WRITER AND METRICS
-        write = db_interface.Writer("172.17.0.3", "testdb", "postgres", "burra", exp_data["edition_id"])
+        write = db_interface.Writer("172.17.0.2", "testdb", "postgres", "burra", exp_data["edition_id"])
         execution_id = write.register_execution(command_register["experiment_id"])
         result_upload = result_uploader.ResultUploader(write)
         agent.add_result_observer(result_upload)

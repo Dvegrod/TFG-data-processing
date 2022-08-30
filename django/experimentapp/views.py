@@ -94,6 +94,12 @@ def new_chart_performance(request, execution_id):
            "experiment": Experiment.objects.get(id=execc.experiment_id)}
     return render(request, 'experimentapp/performance.html', ctx)
 
+def new_chart_reward(request, execution_id):
+    execc = EpisodeExecution.objects.get(id=execution_id)
+    ctx = {"execution" : execc,
+           "experiment": Experiment.objects.get(id=execc.experiment_id)}
+    return render(request, 'experimentapp/reward.html', ctx)
+
 def chart_performance(request, execution_id):
     if request.method == 'GET':
         #name = request.GET["average"]
@@ -107,7 +113,43 @@ def chart_performance(request, execution_id):
         return HttpResponseBadRequest('Has to be GET')
 
 def chart_reward(request, execution_id):
-    pass
+    if request.method == 'GET':
+        #name = request.GET["average"]
+        #agent = request.GET["iterator_session"]
+        ctx = {
+            "execution" : EpisodeExecution.objects.get(id=execution_id),
+            "registers" : ExecutionResult.objects.filter(episode=execution_id)
+        }
+        return render(request, 'experimentapp/data_reward.json', ctx)
+    else:
+        return HttpResponseBadRequest('Has to be GET')
 
 def chart_aarm(request, aarm_id):
     pass
+
+def progress(request, exp_id):
+    exp = Experiment.objects.get(id = exp_id)
+    ctx = {"experiment" : exp,
+           "edition" : Edition.objects.get(id = exp.edition_id)
+    }
+    return render(request, 'experimentapp/progress.json', ctx)
+
+def actions(request, execution_id):
+    ctx = {
+        "execution" : EpisodeExecution.objects.get(id=execution_id),
+        "registers" : ExecutionResult.objects.filter(episode=execution_id)
+    }
+    return render(request, 'experimentapp/data_actions.json', ctx)
+
+def w_choices(request, execution_id):
+    ctx = {
+        "execution" : EpisodeExecution.objects.get(id=execution_id),
+        "registers" : ExecutionResult.objects.filter(episode=execution_id)
+    }
+    return render(request, 'experimentapp/w_choices.html', ctx)
+
+def exp_acc(request, exp_id):
+    exp = Experiment.objects.get(id=exp_id)
+    ctx = {"experiment" : exp,
+           "execution" : EpisodeExecution.objects.filter(experiment = exp).order_by("-date")[0]}
+    return render(request, 'experimentapp/exp.html', ctx)

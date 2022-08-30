@@ -10,7 +10,7 @@
 {% block window_body %}
 <div class="accordion" rendered="false">
     {% for experiment in experiments.all %}
-    <h3 class="accord_name">{{experiment.name}} - {% if experiment.running %}R{% else %}⏸{% endif %}</h3>
+    <h3 class="accord_name">{{experiment.name}}</h3>
     <div class="accord_data" id="ed-{{experiment.id}}">
         <div class="accord_description">
             <div>

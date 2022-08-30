@@ -66,6 +66,6 @@ class ExecutionResult(models.Model):
     id = models.BigAutoField(primary_key=True)
     episode = models.ForeignKey(EpisodeExecution, on_delete=models.CASCADE)
     iteration = models.DateTimeField()
-    # action = models.ForeignKey(AARM, on_delete=models.CASCADE)
+    action = models.ForeignKey(AARM, on_delete=models.CASCADE)
     performance = models.FloatField()
     reward = models.FloatField()

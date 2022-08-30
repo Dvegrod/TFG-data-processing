@@ -14,10 +14,19 @@
      })
  })
 </script>
-<div class="dialog" title="Test Window"><p>Dialog text</p>
-    <button onclick="launch_content('/domains', {'e_select':'true'})">OPEN</button>
-    <button onclick="launch_content('/experiments')">OPEN 2</button>
-    <button onclick="launch_content('/agents', {'a_select':'false'})">OPEN 3</button>
+<div class="dialog" title="Welcome">
+    <p class="bold .accord_description">Instructions:</p>
+    <p>The button DOMAINS is used to access the source data.</p>
+    <p>The button AGENTS is used to create and remove Bandits.</p>
+    <p>The button EXPERIMENTS is used to create and execute experiments.</p>
 </div>
-<div class="dialog" title="Test Window2"><p>Dialog text</p></div>
+<div id="dashboard-menu">
+    <p>MAIN MENU</p>
+    <div id="dmbuttons">
+        <button onclick="launch_content('/domains', {'e_select':'false'})">DOMAINS</button>
+        <button onclick="launch_content('/agents', {'a_select':'false'})">AGENTS</button>
+        <button onclick="launch_content('/experiments')">EXPERIMENTS</button>
+    </div>
+    <div id="general_info"></div>
+</div>
 {% endblock %}

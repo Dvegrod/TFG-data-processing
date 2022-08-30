@@ -1,0 +1,5 @@
+{% extends "experimentapp/w_chart.html" %}
+{% block chart_title %}Rewards | Experiment: {{experiment.name|slice:":25"}} | Execution Date {{execution.date|date:"M d, h:m"}} {% endblock %}
+{% block chart_id %}r_c_{{execution.id}}{% endblock %}
+{% block chart_class %}chart_frame{% endblock %}
+{% block chart_onload %}configure_chart('r_c_{{execution.id}}', 'chart/rewards/{{execution.id}}'){% endblock %}

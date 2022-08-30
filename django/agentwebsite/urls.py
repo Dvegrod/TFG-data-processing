@@ -37,5 +37,11 @@ urlpatterns = [
     # Charts:
     path('new_chart/performance/<int:execution_id>', new_chart_performance, name='nc_perf'),
     path('chart/performance/<int:execution_id>', chart_performance, name='c_perf'),
+    path('new_chart/rewards/<int:execution_id>', new_chart_reward, name='nc_perf'),
+    path('chart/rewards/<int:execution_id>', chart_reward, name='c_perf'),
+    path('progress/<int:exp_id>', progress, name='prog'),
+    path('chart/actions/<int:execution_id>', actions, name='prog'),
+    path('new_table/choices/<int:execution_id>', w_choices, name='prog'),
+    path('exps/<int:exp_id>', exp_acc, name='pacc'),
 ]
 
